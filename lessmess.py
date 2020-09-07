@@ -1,17 +1,18 @@
-from watchdog.observers import Observer
-import time, os, shutil, json
+import json
+import os
+import shutil
+import time
+from tkinter import *
+from tkinter import filedialog
+
 from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
 
-#Checks if the input is blank  
-def is_not_blank(s):
-    return bool(s and s.strip())
 
-#Used as default directory
-path = r'D:\shared\mess'  
-print("Would be kind of smart to not mess up the input, since it could fuck up your system and result in a even bigger mess")
-eingabe = input("Where to clean the mess? No input for default path: " + path)
-if is_not_blank(eingabe):
-    path = eingabe
+#Dialog to choose folder which gets sorted
+root = Tk()
+root.withdraw()
+path = filedialog.askdirectory()
 
 class FileHandler(FileSystemEventHandler):
     def on_modified(self, event):
